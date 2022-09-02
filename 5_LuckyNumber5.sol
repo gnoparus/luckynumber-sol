@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 error LuckyNumber5__NeedMoreEth();
+error LuckyNumber5__WithdrawNotSuccess();
 
 contract LuckyNumber5 {
     address public immutable owner;
@@ -31,6 +32,10 @@ contract LuckyNumber5 {
 
     function withdraw() public {
         require(msg.sender == owner, "Only owner");
-        payable(msg.sender).transfer(ethBalance());
+        // payable(msg.sender).transfer(ethBalance());
+        (bool sent, bytes memory data) = payable(msg.sender).call{
+            value: ethBalance()
+        }("");
+        if (!sent) revert LuckyNumber5__WithdrawNotSuccess();
     }
 }
