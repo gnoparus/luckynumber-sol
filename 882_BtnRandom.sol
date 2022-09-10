@@ -17,28 +17,28 @@ contract BtnRandom2 is VRFConsumerBaseV2 {
     event BtnRandom2__RandomRequested(uint256 indexed requestId);
 
     // Your subscription ID.
-    uint64 s_subscriptionId;
+    uint64 public immutable s_subscriptionId;
 
-    address vrfCoordinator = 0x2Ca8E0C643bDe4C2E08ab1fA0da3401AdAD7734D; // Goerli
-    bytes32 keyHash =
+    address constant vrfCoordinator =
+        0x2Ca8E0C643bDe4C2E08ab1fA0da3401AdAD7734D; // Goerli
+    bytes32 constant keyHash =
         0x79d3d8832d904592c0bf9818b621522c988bb8b0c05cdc3b15aea1b6e8db0c15; // Goerli
 
-    // address vrfCoordinator = 0x271682deb8c4e0901d1a1550ad2e64d568e69909; // Mainnet
-    // bytes32 keyHash =
+    // address constant vrfCoordinator = 0x271682deb8c4e0901d1a1550ad2e64d568e69909; // Mainnet
+    // bytes32 constant keyHash =
     //     0xff8dedfbfa60af186cf3c830acbc32c05aae823045ae5ea7da1e45fbfaba4f92; // Mainnet
 
     // Adjust to (20,000 * numwords) + (event * 10,000 )
-    uint32 callbackGasLimit = 550000;
+    uint32 constant callbackGasLimit = 550000;
+    uint16 constant requestConfirmations = 3;
 
-    uint16 requestConfirmations = 3;
-
-    uint32 numWords = 6;
-    uint256 NO_OF_TOKEN = 2105 - 1501 + 1;
-    uint256 TOKEN_START = 1051;
+    uint32 constant numWords = 6;
+    uint256 constant NO_OF_TOKEN = 2105 - 1501 + 1;
+    uint256 constant TOKEN_START = 1051;
 
     // uint256[] public s_randomWords;
     uint256 public s_requestId;
-    address s_owner;
+    address public immutable s_owner;
 
     constructor(uint64 subscriptionId) VRFConsumerBaseV2(vrfCoordinator) {
         COORDINATOR = VRFCoordinatorV2Interface(vrfCoordinator);
