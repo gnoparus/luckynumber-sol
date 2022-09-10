@@ -8,9 +8,12 @@ contract BtnRandom is VRFConsumerBaseV2 {
     VRFCoordinatorV2Interface COORDINATOR;
 
     event BtnRandom__RandomResult(
+        uint256 indexed requestId,
         uint256 indexed idx,
         uint256 indexed randomword
     );
+
+    event BtnRandom__RandomRequested(uint256 indexed requestId);
 
     // Your subscription ID.
     uint64 s_subscriptionId;
@@ -25,7 +28,7 @@ contract BtnRandom is VRFConsumerBaseV2 {
     bytes32 keyHash =
         0x79d3d8832d904592c0bf9818b621522c988bb8b0c05cdc3b15aea1b6e8db0c15;
 
-    // Adjust to (20,000 * numwords) + (event * 10 )
+    // Adjust to (20,000 * numwords) + (event * 10,000 )
     uint32 callbackGasLimit = 550000;
 
     uint16 requestConfirmations = 3;
@@ -50,16 +53,17 @@ contract BtnRandom is VRFConsumerBaseV2 {
             callbackGasLimit,
             numWords
         );
+        emit BtnRandom__RandomRequested(s_requestId);
     }
 
-    function fulfillRandomWords(
-        uint256, /* requestId */
-        uint256[] memory randomWords
-    ) internal override {
-        s_randomWords = randomWords;
+    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords)
+        internal
+        override
+    {
+        // s_randomWords = randomWords;
 
         for (uint i = 0; i < randomWords.length; i++) {
-            emit BtnRandom__RandomResult(i, randomWords[i]);
+            emit BtnRandom__RandomResult(requestId, i, randomWords[i]);
         }
     }
 
