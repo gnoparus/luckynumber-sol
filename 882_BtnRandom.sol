@@ -4,17 +4,17 @@ pragma solidity ^0.8.7;
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 
-contract BtnRandom8 is VRFConsumerBaseV2 {
+contract BtnRandom2 is VRFConsumerBaseV2 {
     VRFCoordinatorV2Interface COORDINATOR;
 
-    event BtnRandom8__RandomResult(
+    event BtnRandom2__RandomResult(
         uint256 indexed requestId,
         uint256 indexed idx,
         uint256 indexed tokenId,
         uint256 randomword
     );
 
-    event BtnRandom8__RandomRequested(uint256 indexed requestId);
+    event BtnRandom2__RandomRequested(uint256 indexed requestId);
 
     // Your subscription ID.
     uint64 s_subscriptionId;
@@ -28,13 +28,13 @@ contract BtnRandom8 is VRFConsumerBaseV2 {
     //     0xff8dedfbfa60af186cf3c830acbc32c05aae823045ae5ea7da1e45fbfaba4f92; // Mainnet
 
     // Adjust to (20,000 * numwords) + (event * 10,000 )
-    uint32 callbackGasLimit = 750000;
+    uint32 callbackGasLimit = 550000;
 
     uint16 requestConfirmations = 3;
 
-    uint32 numWords = 24;
-    uint256 NO_OF_TOKEN = 2105 - 1 + 1;
-    uint256 TOKEN_START = 1;
+    uint32 numWords = 6;
+    uint256 NO_OF_TOKEN = 2105 - 1501 + 1;
+    uint256 TOKEN_START = 1051;
 
     // uint256[] public s_randomWords;
     uint256 public s_requestId;
@@ -54,7 +54,7 @@ contract BtnRandom8 is VRFConsumerBaseV2 {
             callbackGasLimit,
             numWords
         );
-        emit BtnRandom8__RandomRequested(s_requestId);
+        emit BtnRandom2__RandomRequested(s_requestId);
     }
 
     function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords)
@@ -65,7 +65,7 @@ contract BtnRandom8 is VRFConsumerBaseV2 {
 
         for (uint i = 0; i < randomWords.length; i++) {
             uint256 tokenId = (randomWords[i] % NO_OF_TOKEN) + TOKEN_START;
-            emit BtnRandom8__RandomResult(
+            emit BtnRandom2__RandomResult(
                 requestId,
                 i,
                 tokenId,
