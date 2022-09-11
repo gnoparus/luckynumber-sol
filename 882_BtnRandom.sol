@@ -34,7 +34,7 @@ contract BtnRandom2 is VRFConsumerBaseV2 {
 
     uint32 constant numWords = 6;
     uint256 constant NO_OF_TOKEN = 2105 - 1501 + 1;
-    uint256 constant TOKEN_START = 1051;
+    uint256 constant TOKEN_START = 1501;
 
     // uint256[] public s_randomWords;
     uint256 public s_requestId;
