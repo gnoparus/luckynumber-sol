@@ -33,8 +33,9 @@ contract BtnRandom8 is VRFConsumerBaseV2 {
     uint16 constant requestConfirmations = 3;
 
     uint32 constant numWords = 24;
-    uint256 constant NO_OF_TOKEN = 2105 - 1 + 1;
     uint256 constant TOKEN_START = 1;
+    uint256 constant TOKEN_END = 2105;
+    uint256 constant NO_OF_TOKEN = TOKEN_END - TOKEN_START + 1;
 
     // uint256[] public s_randomWords;
     uint256 public s_requestId;
